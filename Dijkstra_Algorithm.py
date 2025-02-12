@@ -77,6 +77,8 @@ class Dijkstra:
             # Draw the boundary polygon
             boundary_x, boundary_y = boundary_polygon.exterior.xy
             plt.plot(boundary_x, boundary_y, "--r", label="Boundary")
+            plt.legend()
+
 
         while True:
             if not open_set:
@@ -124,7 +126,7 @@ class Dijkstra:
             plt.xlim(boundary_polygon.bounds[0], boundary_polygon.bounds[2])
             plt.ylim(boundary_polygon.bounds[1], boundary_polygon.bounds[3])
             # Draw the boundary polygon again
-            plt.plot(boundary_x, boundary_y, "--r", label="Boundary")
+            plt.plot(boundary_x, boundary_y, "--r")
             plt.legend()
             plt.pause(0.01)
             plt.show()
@@ -329,5 +331,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-``` ▋
