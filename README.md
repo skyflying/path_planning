@@ -29,7 +29,11 @@ The project uses several key data structures:
 ## Result
 
 ### Dijkstra
-
+- Processing
+  
+![image](https://github.com/user-attachments/assets/8225d1fb-85f0-45d9-8841-8061ae9d9071)
+- Result
+  
 ![Dijkstra](https://github.com/skyflying/path_planning/blob/main/Result/Dijkstra_result.png)
 
 
