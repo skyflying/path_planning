@@ -31,3 +31,13 @@ The project uses several key data structures:
 ### Dijkstra
 
 ![Dijkstra](https://github.com/skyflying/path_planning/blob/main/Result/Dijkstra_result.png)
+
+
+## Future Work
+Future work could include:
+
+1. Implementing additional path planning algorithms (e.g., A*).
+2. Enhancing obstacle handling with more complex geometries.
+3. Improving performance for large datasets.
+4. Adding more detailed visualizations and analysis tools.
+
