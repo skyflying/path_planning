@@ -11,6 +11,7 @@ This project aims to find the shortest path between two points while avoiding ob
 It  is structured to allow the implementation of various path planning algorithms. Currently, it includes the following:
 
 - **Dijkstra's Algorithm**: An algorithm for finding the shortest paths between nodes in a graph. It is particularly useful for graphs with non-negative weights.
+- - **A* Algorithm**:
 
 ## Data Structures
 
@@ -35,16 +36,24 @@ The project uses several key data structures:
 - **Termination**: The algorithm terminates when the goal node is found or the open set is empty.
 - **Path Backtracking**: Backtracks the path using parent indices.
 
+### A* 
 
 ## Result
 
 ### Dijkstra
+
 - Processing
   
 ![image](https://github.com/user-attachments/assets/8225d1fb-85f0-45d9-8841-8061ae9d9071)
+
 - Result
   
 ![Dijkstra](https://github.com/skyflying/path_planning/blob/main/Result/Dijkstra_result.png)
+
+### A*
+- Processing
+
+- Result
 
 
 ## Future Work
