@@ -4,11 +4,11 @@ This project implements various path planning algorithms using geographic data. 
 
 ## Purpose
 
-This project aims to find the shortest path between two points while avoiding obstacles, simulating human walking paths. The primary goal is to test and compare different path planning algorithms. The initial implementation uses Dijkstra's algorithm.
+This project aims to find the shortest path between two points while avoiding obstacles, simulating human walking paths, designed to find the shortest path for a robot from a start point to a goal point in an environment with obstacles. Below is a detailed breakdown of the code.
 
 ## Path Planning Algorithms
 
-The project is structured to allow the implementation of various path planning algorithms. Currently, it includes the following:
+It  is structured to allow the implementation of various path planning algorithms. Currently, it includes the following:
 
 - **Dijkstra's Algorithm**: An algorithm for finding the shortest paths between nodes in a graph. It is particularly useful for graphs with non-negative weights.
 
@@ -22,9 +22,19 @@ The project uses several key data structures:
 
 ## Key Features
 
-- **Obstacle Handling**: The algorithm takes into account obstacles and calculates paths that avoid them.
-- **Visualization**: The project includes functions to visualize the paths, obstacles, and boundary polygons using `matplotlib`.
-- **Shapefile Handling**: The project can load and save paths to shapefiles, making it easy to integrate with GIS tools.
+- **Obstacle Handling**: Accounts for the radius and buffers obstacles to ensure collision-free paths.
+- **Visualization**: Supports animated visualization of the path planning process and plots the final path along with obstacles.
+- **Geospatial Data Processing**: load and save paths to shapefiles, making it easy to integrate with GIS tools.
+
+## Algorithm: 
+
+### Dijkstra
+- **Initialization**: Computes grid boundaries and resolution based on start and goal points.
+- **Open and Closed Sets**: Uses dictionaries to store nodes to be explored and nodes already explored.
+- **Node Expansion**: Expands the node with the lowest cost from the open set and checks its neighbors.
+- **Termination**: The algorithm terminates when the goal node is found or the open set is empty.
+- **Path Backtracking**: Backtracks the path using parent indices.
+
 
 ## Result
 
