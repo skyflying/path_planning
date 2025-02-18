@@ -37,6 +37,11 @@ The project uses several key data structures:
 - **Path Backtracking**: Backtracks the path using parent indices.
 
 ### A* 
+- **Initialization**: Computes grid boundaries and resolution based on start and goal points.
+- **Open and Closed Sets**: Uses dictionaries to store nodes to be explored and nodes already explored.
+- **Node Expansion**: Expands the node with the lowest cost from the open set and checks its neighbors.
+- **Termination**: The algorithm terminates when the goal node is found or the open set is empty.
+- **Path Backtracking**: Backtracks the path using parent indices.
 
 ## Result
 
@@ -51,10 +56,10 @@ The project uses several key data structures:
 ![Dijkstra](https://github.com/skyflying/path_planning/blob/main/Result/Dijkstra_result.png)
 
 ### A*
-- Processing
 
 - Result
 
+![A star](https://github.com/skyflying/path_planning/blob/main/Result/Figure_2.png)
 
 ## Future Work
 Future work could include:
@@ -62,5 +67,5 @@ Future work could include:
 1. Implementing additional path planning algorithms (e.g., A*).
 2. Enhancing obstacle handling with more complex geometries.
 3. Improving performance for large datasets.
-4. Adding more detailed visualizations and analysis tools.
+4. Adding the route for planning
 
