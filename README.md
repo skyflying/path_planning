@@ -1,17 +1,18 @@
 # Path Planning
 
-This project implements various path planning algorithms using geographic data. The initial implementation includes Dijkstra's algorithm, and the framework is designed to accommodate additional algorithms for testing and comparison. T
+This project implements various path planning algorithms using geographic data. The initial implementation includes Dijkstra's algorithm, and the framework is designed to accommodate additional algorithms for testing and comparison.
 
 ## Purpose
 
-This project aims to find the shortest path between two points while avoiding obstacles, simulating human walking paths, designed to find the shortest path for a robot from a start point to a goal point in an environment with obstacles. Below is a detailed breakdown of the code.
+This project aims to find the shortest path between two points while avoiding obstacles, simulating human walking paths, designed to find the shortest path for a robot from a start point to a goal point in an environment with obstacles. Below is a detailed breakdown of the code. In ording to find the best path, in second phases, I try to use the road data from OSM for finding the best path.
 
 ## Path Planning Algorithms
 
 It  is structured to allow the implementation of various path planning algorithms. Currently, it includes the following:
 
-- **Dijkstra's Algorithm**: An algorithm for finding the shortest paths between nodes in a graph. It is particularly useful for graphs with non-negative weights.
-- - **A* Algorithm**:
+- **Dijkstra's Algorithm**
+-  **A* Algorithm**
+-  **Path Planning with road**
 
 ## Data Structures
 
@@ -61,11 +62,14 @@ The project uses several key data structures:
 
 ![A star](https://github.com/skyflying/path_planning/blob/main/Result/Figure_2.png)
 
+### A* with roads planning
+
+
+
 ## Future Work
 Future work could include:
 
 1. Implementing additional path planning algorithms (e.g., A*).
 2. Enhancing obstacle handling with more complex geometries.
 3. Improving performance for large datasets.
-4. Adding the route for planning
 
