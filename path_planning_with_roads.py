@@ -417,35 +417,45 @@ def main():
     robot_radius = 1.0
     show_animation = False
 
-    # 調整距離門檻（依資料而定）
-    distance_threshold = 500  
+    # 設定起點 clip 半徑 750 公尺
+    clip_radius = 750
+    # 起點與終點之間必須小於或等於 500 公尺才進行路徑規劃
+    distance_threshold = 500
 
     astar = AStar(obstacles, roads, resolution, robot_radius, show_animation=show_animation)
     paths = []
     tol_val = resolution * 0.5
 
-    # 逐一處理每個起點
     for idx, start in start_points.iterrows():
         if start.geometry is None:
             continue
-        # 過濾障礙物（利用 safe_contains 避免錯誤）
-        obstacles_filtered = obstacles[~obstacles.geometry.apply(lambda g: safe_contains(g, start.geometry))]
-        valid_end_points = end_points[end_points.geometry.notnull()]
+
+        # 以起點為中心，clip 半徑 750 公尺內的障礙物與道路，並快取
+        start_clip_poly = start.geometry.buffer(clip_radius)
+        clipped_obs_start = gpd.clip(obstacles, start_clip_poly)
+        clipped_roads_start = gpd.clip(roads, start_clip_poly)
+        # 更新 astar 使用該起點的快取資料
+        astar.obstacles = clipped_obs_start
+        astar.roads = clipped_roads_start
+
+        # 僅處理在 clip 區域內且距離小於等於 500 公尺的終點
+        valid_end_points = end_points[end_points.geometry.within(start_clip_poly)]
         valid_end_points = valid_end_points[valid_end_points.geometry.distance(start.geometry) <= distance_threshold]
         if valid_end_points.empty:
-            print(f"No valid end points within {distance_threshold} for start point {start['Name']}.")
+            print(f"No valid end points within {distance_threshold}m for start point {start['Name']}.")
             continue
 
         for jdx, end in valid_end_points.iterrows():
-            # 同一組起終點只針對 boundary_polygon 內資料進行計算
-            obstacles_filtered2 = obstacles_filtered[~obstacles_filtered.geometry.apply(lambda g: safe_contains(g, end.geometry))]
-            astar.obstacles = obstacles_filtered2
+            # 額外檢查起始點與終點距離是否 <= 500 公尺
+            if start.geometry.distance(end.geometry) > distance_threshold:
+                continue
+
             boundary_polygon = create_boundary_polygon(start.geometry.x, start.geometry.y, end.geometry.x, end.geometry.y, buffer_distance=20)
             print(f"Processing path from {start['Name']} to {end['NAME']}...")
 
-            # 先取得起點與終點在道路上的候選連接節點
-            start_candidates = get_candidate_road_nodes(start.geometry, roads)
-            end_candidates = get_candidate_road_nodes(end.geometry, roads)
+            # 利用剪裁後的道路資料取得候選連接節點
+            start_candidates = get_candidate_road_nodes(start.geometry, clipped_roads_start)
+            end_candidates = get_candidate_road_nodes(end.geometry, clipped_roads_start)
             if not start_candidates or not end_candidates:
                 print("No candidate road nodes found for start or end.")
                 continue
@@ -454,9 +464,9 @@ def main():
             start_candidates = sorted(start_candidates, key=lambda p: p.distance(start.geometry))[:3]
             end_candidates = sorted(end_candidates, key=lambda p: p.distance(end.geometry))[:3]
 
-            # 建立 boundary_polygon 範圍內的道路網路圖，減少計算量
+            # 建立 boundary_polygon 範圍內的道路網路圖
             road_graph = nx.Graph()
-            for road in roads.geometry:
+            for road in clipped_roads_start.geometry:
                 if not road.intersects(boundary_polygon):
                     continue
                 if road.geom_type == "LineString":
